@@ -1,5 +1,6 @@
-package com.example.journalparser.code;
+package com.example.journalparser.code.myComponents;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 @Component
+@Slf4j
 public class FileWriter {
 
     public void println(String value, File outputFile) throws IOException {
@@ -19,12 +21,16 @@ public class FileWriter {
 
     }
 
-    public  void write(String value, File outputFile) throws IOException {
+    public void write(String value, File outputFile){
         if (!outputFile.exists()) {
-            outputFile.createNewFile();
+            try {
+                outputFile.createNewFile();
+                Files.write(outputFile.toPath(), value.getBytes(), StandardOpenOption.WRITE);
+            } catch (IOException e) {
+                log.error("Не удалось перезаписать файл {}", outputFile.getPath());
+            }
         }
 
-        Files.write(outputFile.toPath(), value.getBytes(), StandardOpenOption.WRITE);
 
     }
 

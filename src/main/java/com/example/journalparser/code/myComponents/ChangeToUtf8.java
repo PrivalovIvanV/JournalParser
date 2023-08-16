@@ -1,4 +1,4 @@
-package com.example.journalparser.code;
+package com.example.journalparser.code.myComponents;
 
 import com.example.journalparser.code.exceptions.CreateBufferFileException;
 import lombok.SneakyThrows;
